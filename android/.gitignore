@@ -9,3 +9,5 @@
 /captures
 build/
 GeneratedPluginRegistrant.java
+.idea/
+gradle/
