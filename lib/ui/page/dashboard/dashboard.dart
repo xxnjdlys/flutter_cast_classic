@@ -551,6 +551,7 @@ class DashboardPageState extends State<DashboardPage>
           .map((NavigationIconView navigationView) => navigationView.item)
           .toList(),
       currentIndex: _currentIndex,
+      fixedColor: Colors.orange,
       type: _type,
       onTap: (int index) {
         setState(() {
