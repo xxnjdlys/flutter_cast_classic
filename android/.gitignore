@@ -11,3 +11,6 @@ build/
 GeneratedPluginRegistrant.java
 .idea/
 gradle/
+*.project
+.classpath
+

@@ -112,8 +112,63 @@ class DashboardPageState extends State<DashboardPage>
   Size deviceSize;
   int _currentIndex = 0;
 
-  BottomNavigationBarType _type = BottomNavigationBarType.fixed;
+  final BottomNavigationBarType _type = BottomNavigationBarType.fixed;
   List<NavigationIconView> _navigationViews;
+  FocusScopeNode _searchFieldFocus;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _searchFieldFocus = FocusScopeNode();
+
+    _navigationViews = <NavigationIconView>[
+      new NavigationIconView(
+        icon: const Icon(Icons.access_alarm),
+        title: 'Browser',
+//        color: Colors.deepPurple,
+        vsync: this,
+      ),
+      new NavigationIconView(
+        activeIcon: const Icon(Icons.cloud),
+        icon: const Icon(Icons.cloud_queue),
+        title: 'More',
+//        color: Colors.teal,
+        vsync: this,
+      ),
+//      new NavigationIconView(
+//        activeIcon: new CustomIcon(),
+//        icon: new CustomInactiveIcon(),
+//        title: 'Box',
+//        color: Colors.deepOrange,
+//        vsync: this,
+//      ),
+    ];
+
+    for (NavigationIconView view in _navigationViews)
+      view.controller.addListener(_rebuild);
+
+    _navigationViews[_currentIndex].controller.value = 1.0;
+  }
+
+  @override
+  void didUpdateWidget(DashboardPage oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void reassemble() {
+    // TODO: implement reassemble
+    super.reassemble();
+  }
+
+  @override
+  void dispose() {
+    for (NavigationIconView view in _navigationViews) view.controller.dispose();
+    _searchFieldFocus.detach();
+    super.dispose();
+  }
 
   Widget appBarColumn(BuildContext context) => SafeArea(
         child: Padding(
@@ -262,36 +317,128 @@ class DashboardPageState extends State<DashboardPage>
         primarySwatch: Colors.orange,
       ),
       home: new Scaffold(
-        appBar: new AppBar(
-          actions: <Widget>[
-            new Padding(
-              padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-              child: new IconButton(
-                icon: new Icon(
-                  Icons.tv,
-                  color: Colors.white,
+          appBar: new AppBar(
+            actions: <Widget>[
+              new Padding(
+                padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                child: new IconButton(
+                  icon: new Icon(
+                    Icons.tv,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    print("hi");
+                  },
                 ),
-                onPressed: () {
-                  print("hi");
-                },
+              ),
+            ],
+            centerTitle: true,
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
+            title: new Text(
+              "More",
+              style: TextStyle(
+                fontFamily: UIData.ralewayFont,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          body: SingleChildScrollView(
+            child: new Column(
+              children: <Widget>[
+                Card(
+                    elevation: 2.0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0.0, vertical: 8.0),
+                      child: DashboardMenuRow(
+                        firstIcon: FontAwesomeIcons.video,
+                        firstLabel: "Local Video",
+                        firstIconCircleColor: Colors.cyan,
+                        secondIcon: FontAwesomeIcons.music,
+                        secondLabel: "Local Music",
+                        secondIconCircleColor: Colors.redAccent,
+                        thirdIcon: FontAwesomeIcons.image,
+                        thirdLabel: "Local Images",
+                        thirdIconCircleColor: Colors.pink,
+                        fourthIcon: FontAwesomeIcons.folder,
+                        fourthLabel: "Local Files",
+                        fourthIconCircleColor: Colors.brown,
+                      ),
+                    )),
+                Card(
+                    elevation: 2.0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0.0, vertical: 8.0),
+                      child: Column(
+                        children: <Widget>[
+                          normalOptionItem(
+                            Icon(
+                              Icons.message,
+                              color: Colors.orange,
+                            ),
+                            "Join our gourp on Messenger",
+                          ),
+                          normalOptionItem(
+                            Icon(
+                              Icons.call,
+                              color: Colors.orange,
+                            ),
+                            "Join our group on What's App",
+                          ),
+                          normalOptionItem(
+                            Icon(
+                              Icons.feedback,
+                              color: Colors.orange,
+                            ),
+                            "Help & Feedback",
+                          ),
+                          normalOptionItem(
+                            Icon(
+                              Icons.share,
+                              color: Colors.orange,
+                            ),
+                            "Share to friend",
+                          ),
+                          normalOptionItem(
+                            Icon(
+                              Icons.account_box,
+                              color: Colors.orange,
+                            ),
+                            "About",
+                          ),
+                        ],
+                      ),
+                    )),
+                normalCard(),
+                normalCard(),
+                normalCard(),
+                normalCard(),
+                normalCard(),
+                normalCard(),
+              ],
+            ),
+          )));
+
+  Widget normalOptionItem(Icon icon, String text) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: <Widget>[
+            icon,
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 14.0,
+                ),
               ),
             ),
           ],
-          centerTitle: true,
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: new Text(
-            "My",
-            style: TextStyle(
-              fontFamily: UIData.ralewayFont,
-              color: Colors.white,
-            ),
-          ),
         ),
-        body: new Center(
-          child: new Text("Comming Soon ..."),
-        ),
-      ));
+      );
 
   Widget normalCard() => Padding(
         padding: const EdgeInsets.all(8.0),
@@ -372,44 +519,6 @@ class DashboardPageState extends State<DashboardPage>
           ],
         ),
       );
-
-  @override
-  void initState() {
-    super.initState();
-    _navigationViews = <NavigationIconView>[
-      new NavigationIconView(
-        icon: const Icon(Icons.access_alarm),
-        title: 'Browser',
-//        color: Colors.deepPurple,
-        vsync: this,
-      ),
-      new NavigationIconView(
-        activeIcon: const Icon(Icons.cloud),
-        icon: const Icon(Icons.cloud_queue),
-        title: 'More',
-//        color: Colors.teal,
-        vsync: this,
-      ),
-//      new NavigationIconView(
-//        activeIcon: new CustomIcon(),
-//        icon: new CustomInactiveIcon(),
-//        title: 'Box',
-//        color: Colors.deepOrange,
-//        vsync: this,
-//      ),
-    ];
-
-    for (NavigationIconView view in _navigationViews)
-      view.controller.addListener(_rebuild);
-
-    _navigationViews[_currentIndex].controller.value = 1.0;
-  }
-
-  @override
-  void dispose() {
-    for (NavigationIconView view in _navigationViews) view.controller.dispose();
-    super.dispose();
-  }
 
   void _rebuild() {
     setState(() {
