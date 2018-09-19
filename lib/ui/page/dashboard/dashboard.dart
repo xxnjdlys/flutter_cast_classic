@@ -346,11 +346,18 @@ class DashboardPageState extends State<DashboardPage>
           body: SingleChildScrollView(
             child: new Column(
               children: <Widget>[
-                Card(
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    // vertical: 4.0,
+                  ),
+                  child: Card(
                     elevation: 2.0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 0.0, vertical: 8.0),
+                          horizontal: 0.0, 
+                          // vertical: 8.0,
+                          ),
                       child: DashboardMenuRow(
                         firstIcon: FontAwesomeIcons.video,
                         firstLabel: "Local Video",
@@ -365,52 +372,62 @@ class DashboardPageState extends State<DashboardPage>
                         fourthLabel: "Local Files",
                         fourthIconCircleColor: Colors.brown,
                       ),
-                    )),
-                Card(
-                    elevation: 2.0,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 0.0, vertical: 8.0),
-                      child: Column(
-                        children: <Widget>[
-                          normalOptionItem(
-                            Icon(
-                              Icons.message,
-                              color: Colors.orange,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    // vertical: 4.0,
+                  ),
+                  child: Card(
+                      elevation: 2.0,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 0.0,
+                            //  vertical: 8.0,
+                             ),
+                        child: Column(
+                          children: <Widget>[
+                            normalOptionItem(
+                              Icon(
+                                Icons.message,
+                                color: Colors.orange,
+                              ),
+                              "Join our gourp on Messenger",
                             ),
-                            "Join our gourp on Messenger",
-                          ),
-                          normalOptionItem(
-                            Icon(
-                              Icons.call,
-                              color: Colors.orange,
+                            normalOptionItem(
+                              Icon(
+                                Icons.call,
+                                color: Colors.orange,
+                              ),
+                              "Join our group on What's App",
                             ),
-                            "Join our group on What's App",
-                          ),
-                          normalOptionItem(
-                            Icon(
-                              Icons.feedback,
-                              color: Colors.orange,
+                            normalOptionItem(
+                              Icon(
+                                Icons.feedback,
+                                color: Colors.orange,
+                              ),
+                              "Help & Feedback",
                             ),
-                            "Help & Feedback",
-                          ),
-                          normalOptionItem(
-                            Icon(
-                              Icons.share,
-                              color: Colors.orange,
+                            normalOptionItem(
+                              Icon(
+                                Icons.share,
+                                color: Colors.orange,
+                              ),
+                              "Share to friend",
                             ),
-                            "Share to friend",
-                          ),
-                          normalOptionItem(
-                            Icon(
-                              Icons.account_box,
-                              color: Colors.orange,
+                            normalOptionItem(
+                              Icon(
+                                Icons.account_box,
+                                color: Colors.orange,
+                              ),
+                              "About",
                             ),
-                            "About",
-                          ),
-                        ],
-                      ),
-                    )),
+                          ],
+                        ),
+                      )),
+                ),
                 normalCard(),
                 normalCard(),
                 normalCard(),
@@ -441,7 +458,9 @@ class DashboardPageState extends State<DashboardPage>
       );
 
   Widget normalCard() => Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8.0,
+        ),
         child: Card(
           elevation: 2.0,
           child: Padding(

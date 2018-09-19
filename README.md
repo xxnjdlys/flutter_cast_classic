@@ -4,16 +4,15 @@ A new cast app rewrite by flutter.
 
 ## Getting Started
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+[QuickCast in Google Play](https://play.google.com/store/apps/details?id=com.wukongtv.wkcast.intl).
 
 ### Android
 
-![](./screenshot/tab_browser.png)
+![](./screenshot/tab_browser.jpg)
 
 ---
 
-![](./screenshot/tab_more.png)
+![](./screenshot/tab_more.jpg)
 
 ---
 

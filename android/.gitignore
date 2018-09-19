@@ -13,4 +13,5 @@ GeneratedPluginRegistrant.java
 gradle/
 *.project
 .classpath
+.settings/
 
